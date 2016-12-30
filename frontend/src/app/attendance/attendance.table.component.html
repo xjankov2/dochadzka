@@ -1,0 +1,16 @@
+<table class="col-lg-12 table-bordered table-responsive table-hover table-condensed">
+  <thead>
+  <tr>
+    <th style="width: 15px"></th>
+    <th *ngFor="let person of persons">{{person.firstName}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let day of days; let i = index;">
+    <td>{{i + 1}}.{{_month}}.</td>
+    <td *ngFor="let person of persons">
+      <emp-attendance-table-item [dayItem]="findDayItem(person, i + 1)"></emp-attendance-table-item>
+    </td>
+  </tr>
+  </tbody>
+</table>

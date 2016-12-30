@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>dochadzka</artifactId>
+        <groupId>sk.dochadzka</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>frontend</artifactId>
+
+    <dependencies>
+      <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-codegen-cli</artifactId>
+        <version>2.2.1</version>
+      </dependency>
+    </dependencies>
+
+    <build>
+      <plugins>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.8</version>
+          <executions>
+            <execution>
+              <id>generate-internal-api</id>
+              <phase>generate-sources</phase>
+              <configuration>
+                <target>
+                  <condition property="rootDir" value="${project.basedir}/.." else="${project.basedir}">
+                    <matches string="${project.basedir}"  pattern=".*${project.name}" />
+                  </condition>
+                  <java classname="io.swagger.codegen.SwaggerCodegen" classpath="${io.swagger:swagger-codegen-cli:jar}" fork="no">
+                    <arg value="generate" />
+                    <arg value="--input-spec" /><arg value="${rootDir}/backend/target/jaxrs-analyzer/swagger.json" />
+                    <arg value="--lang" /><arg value="typescript-angular2" />
+                    <arg value="--output" /><arg value="${project.basedir}/src/app/rest" />
+                    <arg value="--invoker-package" /><arg value="rest" />
+                    <arg value="--additional-properties" /><arg value="supportsES6=true,class" />
+                  </java>
+                </target>
+              </configuration>
+              <goals>
+                <goal>run</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+          <executions>
+            <execution>
+              <id>copy-resources</id>
+              <phase>package</phase>
+              <goals>
+                <goal>copy-resources</goal>
+              </goals>
+              <configuration>
+                <outputDirectory>${basedir}/../backend/src/main/webapp</outputDirectory>
+                <resources>
+                  <resource>
+                    <directory>dist</directory>
+                  </resource>
+                </resources>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </build>
+
+</project>
