@@ -1,4 +1,5 @@
 export * from './DayItem';
 export * from './DayItemRecord';
+export * from './DayItemsContainer';
 export * from './Person';
 export * from './RecordType';

@@ -25,18 +25,8 @@
 'use strict';
 import * as models from './models';
 
-export interface Person {
+export interface DayItemsContainer {
     
 
-    firstName?: string;
-
-    id?: number;
-
-    lastName?: string;
-
-    prefixDegree?: string;
-
-    suffixDegree?: string;
-
-    vacationCount?: number;
+    dayItems?: any;
 }

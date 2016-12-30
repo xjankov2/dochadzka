@@ -57,7 +57,7 @@
                         </goals>
                         <configuration>
                             <backend>swagger</backend>
-                            <deployedDomain>localhost:8080/api</deployedDomain>
+                            <deployedDomain>localhost:8080</deployedDomain>
                             <renderSwaggerTags>true</renderSwaggerTags>
                         </configuration>
                     </execution>

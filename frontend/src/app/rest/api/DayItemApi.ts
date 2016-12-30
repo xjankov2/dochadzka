@@ -33,7 +33,7 @@ import 'rxjs/Rx';
 'use strict';
 
 @Injectable()
-export class PersonApi {
+export class DayItemApi {
     protected basePath = 'http://localhost:8080/api';
     public defaultHeaders : Headers = new Headers();
 
@@ -46,73 +46,17 @@ export class PersonApi {
     /**
      * 
      * 
-     * @param body 
+     * @param date 
      */
-    public personDelete (body: models.Person, extraHttpRequestParams?: any ) : Observable<{}> {
-        const path = this.basePath + '/person';
+    public dayItemDateGet (date: string, extraHttpRequestParams?: any ) : Observable<models.DayItemsContainer> {
+        const path = this.basePath + '/dayItem/{date}'
+            .replace('{' + 'date' + '}', String(date));
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        // verify required parameter 'body' is not null or undefined
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling personDelete.');
-        }
-        let requestOptions: RequestOptionsArgs = {
-            method: 'DELETE',
-            headers: headerParams,
-            search: queryParameters
-        };
-        requestOptions.body = JSON.stringify(body);
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * 
-     * 
-     */
-    public personGet (extraHttpRequestParams?: any ) : Observable<Array<Object>> {
-        const path = this.basePath + '/person';
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        let requestOptions: RequestOptionsArgs = {
-            method: 'GET',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * 
-     * 
-     * @param id 
-     */
-    public personIdGet (id: number, extraHttpRequestParams?: any ) : Observable<models.Person> {
-        const path = this.basePath + '/person/{id}'
-            .replace('{' + 'id' + '}', String(id));
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling personIdGet.');
+        // verify required parameter 'date' is not null or undefined
+        if (date === null || date === undefined) {
+            throw new Error('Required parameter date was null or undefined when calling dayItemDateGet.');
         }
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
@@ -135,14 +79,14 @@ export class PersonApi {
      * 
      * @param body 
      */
-    public personPut (body: models.Person, extraHttpRequestParams?: any ) : Observable<models.Person> {
-        const path = this.basePath + '/person';
+    public dayItemPut (body: models.DayItem, extraHttpRequestParams?: any ) : Observable<models.DayItem> {
+        const path = this.basePath + '/dayItem';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling personPut.');
+            throw new Error('Required parameter body was null or undefined when calling dayItemPut.');
         }
         let requestOptions: RequestOptionsArgs = {
             method: 'PUT',
