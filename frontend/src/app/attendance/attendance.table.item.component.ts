@@ -44,6 +44,8 @@ export class AttendanceTableItemComponent implements OnInit {
   }
 
   editDayItem() {
+    this.recordItemRecordTypeCode = null;
+    this.recordItemHours = null;
     if (!this.dayItem) {
       this.editedDayItem = this._createNewDayItem();
     } else {
@@ -56,7 +58,7 @@ export class AttendanceTableItemComponent implements OnInit {
   addRecordItem() {
     let recordItem:DayItemRecord = {
       hoursCount: this.recordItemHours,
-      type: this.recordTypes.find(recordType => recordType.code === this.recordItemRecordTypeCode),
+      type: this.getRecordTypeByCode(this.recordItemRecordTypeCode),
     };
     this.editedDayItem.recordSet.push(recordItem);
   }
@@ -75,6 +77,13 @@ export class AttendanceTableItemComponent implements OnInit {
 
   close() {
     this.dayItemModal.close();
+  }
+
+  getRecordTypeByCode(recordTypeCode):RecordType {
+    if (this.recordTypes) {
+      return this.recordTypes.find(recordType => recordType.code === recordTypeCode)
+    }
+    return null;
   }
 
   _createNewDayItem():DayItem {

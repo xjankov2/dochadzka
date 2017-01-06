@@ -33,9 +33,30 @@ export class AttendanceTableComponent {
     }
   }
 
-  isWeekend(day:Date): boolean {
-    // return true;
-    return day.getDay() == 6 || day.getDay() == 7;
+  getTableItemClass(person:Person, day:number, month:number, year:number) {
+    let weekend:boolean = false;
+    let emptyDayItem:boolean = false;
+    let setDayItem:boolean = false;
+
+    let date:Date = new Date();
+    date.setFullYear(year, month - 1, day);
+
+    if (date.getDay() == 6 || date.getDay() == 0) {
+      weekend = true;
+    } else {
+      let dayItem:DayItem = this.findDayItem(person, day);
+      if (!dayItem || !dayItem.recordSet || dayItem.recordSet.length == 0) {
+        emptyDayItem = true;
+      } else {
+        setDayItem = true;
+      }
+    }
+
+    return {
+      'bg-danger': weekend,
+      'empty-day-item': emptyDayItem,
+      'bg-success': setDayItem
+    }
   }
 
   findDayItem(person : Person, day:number):DayItem {
