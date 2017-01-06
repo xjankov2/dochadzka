@@ -51,7 +51,9 @@ public class DayItemResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         LocalDate localDate = LocalDate.of(year.intValue(), month.intValue(), 1);
-        return Response.ok().entity(dayItemService.prefillDayItems(localDate)).build();
+        dayItemService.prefillDayItems(localDate);
+
+        return Response.ok().entity(dayItemService.getDayItems(month.intValue(), year.intValue())).build();
     }
 
 }

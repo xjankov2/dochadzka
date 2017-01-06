@@ -89,7 +89,7 @@ public class DayItemServiceImpl implements DayItemService {
     }
 
     @Override
-    public DayItemsContainer prefillDayItems(LocalDate date) {
+    public void prefillDayItems(LocalDate date) {
         for (int day=1; day<=date.lengthOfMonth();day++) {
             LocalDate dayInEnteredMonthAndYear = LocalDate.of(date.getYear(), date.getMonth(), day);
 
@@ -122,7 +122,6 @@ public class DayItemServiceImpl implements DayItemService {
             }
 
         }
-        return getDayItems(date.getDayOfMonth(), date.getDayOfMonth());
     }
 
 

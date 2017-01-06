@@ -17,6 +17,6 @@ public interface DayItemService {
 
     DayItem saveDayItem(DayItem dayItem);
 
-    DayItemsContainer prefillDayItems(LocalDate date);
+    void prefillDayItems(LocalDate date);
 
 }
