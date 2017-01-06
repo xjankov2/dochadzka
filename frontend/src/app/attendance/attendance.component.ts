@@ -1,43 +1,35 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs/Observable";
 import {Month} from "../shared/enum/Month";
 import {DayItem} from "../rest/model/DayItem";
 import {Person} from "../rest/model/Person";
-import {DayItemRecord} from "../rest/model/DayItemRecord";
-import {RecordType} from "../rest/model/RecordType";
+import {ActivatedRoute} from "@angular/router";
+import {PersonService} from "../shared/service/person.service";
+import {DayItemsContainer} from "../rest/model/DayItemsContainer";
 
 @Component({
   selector: 'emp-attendance',
   templateUrl: './attendance.component.html',
+  providers: []
 })
-export class AttendanceComponent {
+export class AttendanceComponent implements OnInit {
 
   selectedMonth:Month;
   selectedYear:number;
-  dayItems:Array<DayItem>;
   persons:Array<Person>;
+  dayItems:Array<DayItem>;
 
-  constructor() {
+  constructor(private personService: PersonService, private route:ActivatedRoute) {
     let now:Date = new Date();
 
     this.selectedMonth = now.getMonth() + 1;
     this.selectedYear = now.getFullYear();
+  }
 
-    this.persons = this.getPersons();
+  ngOnInit(): void {
+    this.persons = this.route.snapshot.data['persons'];
 
-    let dayItem:DayItem = {};
-    dayItem.id = 1;
-    dayItem.date = new Date(2016, 12, 0);
-    dayItem.person = {id:1, firstName:'Person1'};
-
-    let recordType:RecordType = {code:'WORK',description:'Pritomny',attendType:true,hoursType:true};
-
-    let recordItems:Array<DayItemRecord> = new Array();
-    recordItems.push({id:1,hoursCount:8,type:recordType});
-
-    dayItem.recordSet = recordItems;
-
-    this.dayItems = new Array();
-    this.dayItems.push(dayItem);
+    this._loadActualDayItems();
   }
 
   increaseMonth() {
@@ -46,6 +38,7 @@ export class AttendanceComponent {
       this.increaseYear();
     } else {
       this.selectedMonth++;
+      this._loadActualDayItems();
     }
   }
 
@@ -55,27 +48,40 @@ export class AttendanceComponent {
       this.decreaseYear();
     } else {
       this.selectedMonth--;
+      this._loadActualDayItems();
     }
   }
 
   increaseYear() {
     this.selectedYear++;
+    this._loadActualDayItems();
   }
 
   decreaseYear() {
     this.selectedYear--;
+    this._loadActualDayItems();
   }
 
-  getPersons():Array<Person> {
-    let persons:Array<Person> = new Array();
-    persons.push(
-      {id:1, firstName:'Person1'},
-      {id:2, firstName:'Person2'},
-      {id:3, firstName:'Person3'},
-      {id:4, firstName:'Person4'},
-      {id:5, firstName:'Person5'}
-    );
-    return persons;
+  prefill() {
+    this._parseDayItemsObservable(this.personService.refillPerson(this.selectedMonth, this.selectedYear))
+  }
+
+  _loadActualDayItems() {
+    this._parseDayItemsObservable(this.personService.getDayItems(this.selectedMonth, this.selectedYear));
+  }
+
+  _parseDayItemsObservable(dayItemsContainer:Observable<DayItemsContainer>) {
+    dayItemsContainer
+      .subscribe(response => {
+        this.dayItems = new Array();
+
+        for (let dayItemsRow of response.dayItems) {
+          for (let dayItem of dayItemsRow.dayItems) {
+            dayItem.person = dayItemsRow.person;
+            this.dayItems.push(dayItem);
+          }
+        }
+      });
   }
 
 }

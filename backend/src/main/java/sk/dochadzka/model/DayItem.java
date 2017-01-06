@@ -3,7 +3,7 @@ package sk.dochadzka.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,14 +17,19 @@ public class DayItem {
     private Long id;
 
     @Column
-    private LocalDate date;
+    private Integer day;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "dayItem")
-    private Set<DayItemRecord> recordSet;
+    @Column
+    private Integer month;
+
+    @Column
+    private Integer yearValue;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dayItem", cascade = CascadeType.ALL)
+    private Set<DayItemRecord> recordSet = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PERSON_ID")
-    @JsonIgnore
     private Person person;
 
     public Long getId() {
@@ -35,12 +40,28 @@ public class DayItem {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Integer getDay() {
+        return day;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDay(Integer day) {
+        this.day = day;
+    }
+
+    public Integer getMonth() {
+        return month;
+    }
+
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
+
+    public Integer getYearValue() {
+        return yearValue;
+    }
+
+    public void setYearValue(Integer yearValue) {
+        this.yearValue = yearValue;
     }
 
     public Set<DayItemRecord> getRecordSet() {

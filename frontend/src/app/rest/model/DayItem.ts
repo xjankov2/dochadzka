@@ -28,11 +28,15 @@ import * as models from './models';
 export interface DayItem {
     
 
-    date?: any;
+    day?: number;
 
     id?: number;
+
+    month?: number;
 
     person?: models.Person;
 
     recordSet?: Array<models.DayItemRecord>;
+
+    yearValue?: number;
 }

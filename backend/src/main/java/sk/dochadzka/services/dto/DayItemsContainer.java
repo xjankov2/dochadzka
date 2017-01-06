@@ -1,5 +1,6 @@
 package sk.dochadzka.services.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import sk.dochadzka.model.DayItem;
 import sk.dochadzka.model.Person;
 
@@ -11,21 +12,22 @@ import java.util.Map;
  */
 public class DayItemsContainer {
 
-    private Map<Person, List<DayItem>> dayItems;
+    private List<DayItemsContainerRow> dayItems;
 
     public DayItemsContainer() {
 
     }
 
-    public DayItemsContainer(Map<Person, List<DayItem>> dayItems) {
+    public DayItemsContainer(List<DayItemsContainerRow> dayItems) {
         this.dayItems = dayItems;
     }
 
-    public Map<Person, List<DayItem>> getDayItems() {
+    public List<DayItemsContainerRow> getDayItems() {
         return dayItems;
     }
 
-    public void setDayItems(Map<Person, List<DayItem>> dayItems) {
+    public void setDayItems(List<DayItemsContainerRow> dayItems) {
         this.dayItems = dayItems;
     }
 }
+

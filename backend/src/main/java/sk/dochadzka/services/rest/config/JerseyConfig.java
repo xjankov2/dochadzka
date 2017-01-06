@@ -1,7 +1,10 @@
-package sk.dochadzka.services.rest;
+package sk.dochadzka.services.rest.config;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
+import sk.dochadzka.services.rest.DayItemResource;
+import sk.dochadzka.services.rest.PersonResource;
+import sk.dochadzka.services.rest.RecordTypeResource;
 
 import javax.ws.rs.ApplicationPath;
 

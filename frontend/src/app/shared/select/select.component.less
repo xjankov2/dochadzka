@@ -1,0 +1,61 @@
+@import '../../styles/variables';
+
+:host {
+  & /deep/ .ui-select-container {
+    outline: 0;
+  }
+  & /deep/ .ui-select-match-text {
+    color: @input-color;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  & /deep/ .ui-select-toggle {
+    padding-right: 50px;
+    border-left: 1px solid @input-background-color; // zakryva 1px modreho pozadia
+    background: linear-gradient(to left, @sbb-blue @input-height, @input-background-color @input-height);
+    &:hover {
+      background: linear-gradient(to left, @sbb-blue @input-height, #e6e6e6 @input-height);
+      & .btn-link {
+        background-color: #e6e6e6;
+      }
+    }
+    & .btn-link { // delete button ('x')
+      border: none;
+      background-color: @input-background-color;
+      height: @input-height;
+      width: @input-height;
+      border-radius: 0;
+      margin-top: -6px;
+      box-shadow: none;
+      position: absolute;
+      right: 20px;
+
+      &:hover {
+        background-color: @sbb-blue;
+      }
+      & > .glyphicon {
+        top: 6px;
+      }
+    }
+  }
+  & /deep/ .ui-disabled.ui-disabled {
+    background-color: @input-disabled-bg-color;
+    cursor: default;
+    opacity: 0;
+
+    & + .ui-select-match .ui-select-toggle {
+      background: linear-gradient(to left, #E6E6E6 27px, #ffffff 27px);
+      padding-right: 27px;
+      & .ui-select-match-text {
+        color: @input-disabled-text-color !important;
+      }
+      & .caret {
+        color: #BFBFBF;
+      }
+      & .btn-link {
+        display: none;
+      }
+    }
+  }
+}

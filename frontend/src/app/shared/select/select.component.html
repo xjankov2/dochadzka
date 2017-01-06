@@ -1,0 +1,9 @@
+<ng-select [allowClear]="true"
+           [items]="items"
+           (data)="refreshValue($event)"
+           (selected)="selected($event)"
+           (removed)="removed($event)"
+           (typed)="typed($event)"
+           [active]="initialValue"
+           [disabled]="readonly"
+></ng-select>

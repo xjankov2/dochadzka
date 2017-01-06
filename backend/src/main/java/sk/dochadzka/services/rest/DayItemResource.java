@@ -7,8 +7,8 @@ import sk.dochadzka.services.DayItemService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Created by jankovicovci on 30.12.2016.
@@ -21,11 +21,19 @@ public class DayItemResource {
     private DayItemService dayItemService;
 
     @GET
-    @Path("/{date}")
     @Produces("application/json")
-    public Response searchDayItems(@PathParam("date") String date) {
-        LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("mm.YYYY"));
-        return Response.ok().entity(dayItemService.getDayItems(localDate)).build();
+    public Response getAllDayItems() {
+        return Response.ok().entity(dayItemService.getAllDayItems()).build();
+    }
+
+    @GET
+    @Path("/{month}/{year}")
+    @Produces("application/json")
+    public Response searchDayItems(@PathParam("month") BigDecimal month, @PathParam("year") BigDecimal year) {
+        if (month == null || year == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        return Response.ok().entity(dayItemService.getDayItems(month.intValue(), year.intValue())).build();
     }
 
     @PUT
@@ -33,6 +41,17 @@ public class DayItemResource {
     @Produces("application/json")
     public Response saveDayItem(DayItem dayItem) {
         return Response.ok().entity(dayItemService.saveDayItem(dayItem)).build();
+    }
+
+    @PUT
+    @Path("/{month}/{year}/refill")
+    @Produces("application/json")
+    public Response refill(@PathParam("month") BigDecimal month, @PathParam("year") BigDecimal year) {
+        if (month == null || year == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        LocalDate localDate = LocalDate.of(year.intValue(), month.intValue(), 1);
+        return Response.ok().entity(dayItemService.prefillDayItems(localDate)).build();
     }
 
 }

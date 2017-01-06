@@ -46,20 +46,88 @@ export class DayItemApi {
     /**
      * 
      * 
-     * @param date 
      */
-    public dayItemDateGet (date: string, extraHttpRequestParams?: any ) : Observable<models.DayItemsContainer> {
-        const path = this.basePath + '/dayItem/{date}'
-            .replace('{' + 'date' + '}', String(date));
+    public dayItemGet (extraHttpRequestParams?: any ) : Observable<Array<Object>> {
+        const path = this.basePath + '/dayItem';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        // verify required parameter 'date' is not null or undefined
-        if (date === null || date === undefined) {
-            throw new Error('Required parameter date was null or undefined when calling dayItemDateGet.');
+        let requestOptions: RequestOptionsArgs = {
+            method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
+     * 
+     * 
+     * @param month 
+     * @param year 
+     */
+    public dayItemMonthYearGet (month: string, year: string, extraHttpRequestParams?: any ) : Observable<models.DayItemsContainer> {
+        const path = this.basePath + '/dayItem/{month}/{year}'
+            .replace('{' + 'month' + '}', String(month))
+            .replace('{' + 'year' + '}', String(year));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'month' is not null or undefined
+        if (month === null || month === undefined) {
+            throw new Error('Required parameter month was null or undefined when calling dayItemMonthYearGet.');
+        }
+        // verify required parameter 'year' is not null or undefined
+        if (year === null || year === undefined) {
+            throw new Error('Required parameter year was null or undefined when calling dayItemMonthYearGet.');
         }
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
+     * 
+     * 
+     * @param month 
+     * @param year 
+     */
+    public dayItemMonthYearRefillPut (month: string, year: string, extraHttpRequestParams?: any ) : Observable<models.DayItemsContainer> {
+        const path = this.basePath + '/dayItem/{month}/{year}/refill'
+            .replace('{' + 'month' + '}', String(month))
+            .replace('{' + 'year' + '}', String(year));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'month' is not null or undefined
+        if (month === null || month === undefined) {
+            throw new Error('Required parameter month was null or undefined when calling dayItemMonthYearRefillPut.');
+        }
+        // verify required parameter 'year' is not null or undefined
+        if (year === null || year === undefined) {
+            throw new Error('Required parameter year was null or undefined when calling dayItemMonthYearRefillPut.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'PUT',
             headers: headerParams,
             search: queryParameters
         };

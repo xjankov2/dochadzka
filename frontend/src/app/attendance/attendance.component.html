@@ -1,21 +1,21 @@
 <div class="row">
   <div class="col-lg-12">
     <h3>
-      Dochadzka
-      <a (click)="decreaseMonth()"><i class="fa fa-chevron-left"></i></a>
-      <a (click)="increaseMonth()"><i class="fa fa-chevron-right"></i></a>
+      Dochádzka
+      <a (click)="decreaseMonth()" style="cursor: pointer;"><i class="fa fa-chevron-left"></i></a>
+      <a (click)="increaseMonth()" style="cursor: pointer;"><i class="fa fa-chevron-right"></i></a>
       {{selectedMonth}}
 
-      <a (click)="decreaseYear()"><i class="fa fa-chevron-left"></i></a>
-      <a (click)="increaseYear()"><i class="fa fa-chevron-right"></i></a>
+      <a (click)="decreaseYear()" style="cursor: pointer;"><i class="fa fa-chevron-left"></i></a>
+      <a (click)="increaseYear()" style="cursor: pointer;"><i class="fa fa-chevron-right"></i></a>
       {{selectedYear}}
     </h3>
 
-    <button class="btn btn-primary">Predvypln</button>
+    <button class="btn btn-primary" (click)="prefill()">Predvyplň</button>
     <button class="btn btn-primary">Dovolenka</button>
 
     <div style="padding-top: 10px">
-      <emp-attendance-table [month]="selectedMonth" [year]="selectedYear" [persons]="persons" [dayItems]="dayItems"></emp-attendance-table>
+      <emp-attendance-table [month]="selectedMonth" [yearValue]="selectedYear" [persons]="persons" [dayItems]="dayItems"></emp-attendance-table>
     </div>
 
   </div>

@@ -25,8 +25,10 @@
 'use strict';
 import * as models from './models';
 
-export interface DayItemsContainer {
+export interface DayItemsContainerRow {
     
 
-    dayItems?: Array<models.DayItemsContainerRow>;
+    dayItems?: Array<models.DayItem>;
+
+    person?: models.Person;
 }

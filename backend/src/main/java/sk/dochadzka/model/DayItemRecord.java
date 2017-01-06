@@ -1,5 +1,7 @@
 package sk.dochadzka.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -20,6 +22,7 @@ public class DayItemRecord {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DAY_ITEM_ID")
+    @JsonIgnore
     private DayItem dayItem;
 
     @ManyToOne(fetch = FetchType.EAGER)

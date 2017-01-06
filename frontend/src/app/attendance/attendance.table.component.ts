@@ -13,7 +13,8 @@ export class AttendanceTableComponent {
 
   _month:Month;
   _year:number;
-  _dayItems:Array<DayItem>;
+
+  @Input() dayItems:Array<DayItem>;
 
   @Input() persons:Array<Person>;
 
@@ -21,13 +22,9 @@ export class AttendanceTableComponent {
     this._month = month;
     this.updateTable();
   }
-  @Input() set year(year:number) {
-    this._year = year;
+  @Input() set yearValue(yearValue:number) {
+    this._year = yearValue;
     this.updateTable();
-  }
-
-  @Input() set dayItems(dayItems:Array<DayItem>) {
-    this._dayItems = dayItems;
   }
 
   updateTable(): void {
@@ -42,12 +39,17 @@ export class AttendanceTableComponent {
   }
 
   findDayItem(person : Person, day:number):DayItem {
-    return this._dayItems.find(dayItem => {
-      return person.id === dayItem.person.id &&
-            dayItem.date.getDate() === day &&
-             (dayItem.date.getMonth() + 1) === this._month &&
-              dayItem.date.getFullYear() === this._year;
-    });
+    if (!this.dayItems) {
+      return null;
+    } else {
+      return this.dayItems.find(dayItem => {
+        return person.id === dayItem.person.id &&
+          dayItem.day === day &&
+          dayItem.month === this._month &&
+          dayItem.yearValue === this._year;
+      });
+
+    }
   }
 
 }

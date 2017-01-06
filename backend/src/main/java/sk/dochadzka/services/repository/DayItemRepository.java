@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import sk.dochadzka.model.DayItem;
 import sk.dochadzka.model.Person;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -14,6 +13,8 @@ import java.util.List;
 @Repository
 public interface DayItemRepository extends JpaRepository<DayItem, Long> {
 
-    List<DayItem> findByPersonAndDate(Person person, LocalDate date);
+    List<DayItem> findByPersonAndDayAndMonthAndYearValue(Person person, Integer day, Integer month, Integer yearValue);
+
+    List<DayItem> findByPersonAndMonthAndYearValue(Person person, Integer month, Integer yearValue);
 
 }
