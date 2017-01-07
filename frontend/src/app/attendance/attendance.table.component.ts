@@ -1,7 +1,10 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Month} from "../shared/enum/Month";
 import {DayItem} from "../rest/model/DayItem";
 import {Person} from "../rest/model/Person";
+import {HolidayApi} from "../rest/api/HolidayApi";
+import {HolidayService} from "../shared/service/holiday.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'emp-attendance-table',
@@ -27,36 +30,45 @@ export class AttendanceTableComponent {
     this.updateTable();
   }
 
+  constructor(private holidayService:HolidayService) {}
+
   updateTable(): void {
     if (this._year && this._month) {
       this.days =  Array(new Date(this._year, this._month, 0).getDate());
     }
   }
 
-  getTableItemClass(person:Person, day:number, month:number, year:number) {
-    let weekend:boolean = false;
-    let emptyDayItem:boolean = false;
-    let setDayItem:boolean = false;
+  getTableItemClass(person:Person, day:number, month:number, year:number):Observable<Object> {
+    return this.holidayService.getHolidays()
+      .map(holidays => {
+        let weekend:boolean = false;
+        let holiday:boolean = false;
+        let emptyDayItem:boolean = false;
+        let setDayItem:boolean = false;
 
-    let date:Date = new Date();
-    date.setFullYear(year, month - 1, day);
+        let date:Date = new Date();
+        date.setFullYear(year, month - 1, day);
 
-    if (date.getDay() == 6 || date.getDay() == 0) {
-      weekend = true;
-    } else {
-      let dayItem:DayItem = this.findDayItem(person, day);
-      if (!dayItem || !dayItem.recordSet || dayItem.recordSet.length == 0) {
-        emptyDayItem = true;
-      } else {
-        setDayItem = true;
-      }
-    }
-
-    return {
-      'bg-danger': weekend,
-      'empty-day-item': emptyDayItem,
-      'bg-success': setDayItem
-    }
+        if (holidays.filter(holiday => holiday.day == day && holiday.month == month && holiday.yearValue == year).length > 0) {
+          holiday = true;
+        } else {
+          if (date.getDay() == 6 || date.getDay() == 0) {
+            weekend = true;
+          } else {
+            let dayItem:DayItem = this.findDayItem(person, day);
+            if (!dayItem || !dayItem.recordSet || dayItem.recordSet.length == 0) {
+              emptyDayItem = true;
+            } else {
+              setDayItem = true;
+            }
+          }
+        }
+        return {
+          'empty-day-item': emptyDayItem,
+          'bg-success': setDayItem,
+          'bg-danger': weekend || holiday,
+        }
+      });
   }
 
   findDayItem(person : Person, day:number):DayItem {
@@ -70,6 +82,20 @@ export class AttendanceTableComponent {
           dayItem.yearValue === this._year;
       });
 
+    }
+  }
+
+  handleDayItemUpdate(updatedDayItem:DayItem) {
+    let filteredDayItem:Array<DayItem> = this.dayItems.filter(dayItem => {
+      return dayItem.day == updatedDayItem.day &&
+             dayItem.month == updatedDayItem.month &&
+             dayItem.yearValue == updatedDayItem.yearValue &&
+             dayItem.person.id == updatedDayItem.person.id;
+    });
+    if (filteredDayItem.length == 0) {
+      this.dayItems.push(updatedDayItem);
+    } else {
+      filteredDayItem.forEach(dayItem => dayItem.recordSet = updatedDayItem.recordSet);
     }
   }
 

@@ -3,6 +3,7 @@ package sk.dochadzka.services.rest.config;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 import sk.dochadzka.services.rest.DayItemResource;
+import sk.dochadzka.services.rest.HolidayResource;
 import sk.dochadzka.services.rest.PersonResource;
 import sk.dochadzka.services.rest.RecordTypeResource;
 
@@ -18,5 +19,6 @@ public class JerseyConfig extends ResourceConfig {
         register(PersonResource.class);
         register(DayItemResource.class);
         register(RecordTypeResource.class);
+        register(HolidayResource.class);
     }
 }

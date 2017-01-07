@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, OnInit} from "@angular/core";
+import {Component, Input, ViewChild, OnInit, Output} from "@angular/core";
 import {DayItem} from "../rest/model/DayItem";
 import {Person} from "../rest/model/Person";
 import {Month} from "../shared/enum/Month";
@@ -8,6 +8,7 @@ import {RecordType} from "../rest/model/RecordType";
 import {Modal} from "ng2-modal";
 import {DayItemApi} from "../rest/api/DayItemApi";
 import {Headers} from "@angular/http";
+import {EventEmitter} from "@angular/common/src/facade/async";
 
 @Component({
   selector: 'emp-attendance-table-item',
@@ -22,6 +23,8 @@ export class AttendanceTableItemComponent implements OnInit {
   @Input() day:number;
   @Input() month:Month;
   @Input() yearValue:number;
+
+  @Output() dayItemUpdated = new EventEmitter<DayItem>();
 
   @ViewChild('dayItemModal') dayItemModal:Modal;
 
@@ -68,10 +71,14 @@ export class AttendanceTableItemComponent implements OnInit {
   }
 
   saveDayItem() {
+    if (this.recordItemRecordTypeCode &&
+        this.editedDayItem.recordSet.filter(dayItemRecord => dayItemRecord.type.code == this.recordItemRecordTypeCode).length == 0) {
+      this.addRecordItem();
+    }
     this.dayItemApi.defaultHeaders = new Headers({'Content-Type': 'application/json'});
     this.dayItemApi.dayItemPut(this.editedDayItem).subscribe(response => {
-      this.dayItem = response;
       this.close();
+      this.dayItemUpdated.emit(response);
     });
   }
 

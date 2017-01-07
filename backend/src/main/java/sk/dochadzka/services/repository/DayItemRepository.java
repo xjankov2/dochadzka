@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface DayItemRepository extends JpaRepository<DayItem, Long> {
 
-    List<DayItem> findByPersonAndDayAndMonthAndYearValue(Person person, Integer day, Integer month, Integer yearValue);
+    DayItem findByPersonAndDayAndMonthAndYearValue(Person person, Integer day, Integer month, Integer yearValue);
 
     List<DayItem> findByPersonAndMonthAndYearValue(Person person, Integer month, Integer yearValue);
 

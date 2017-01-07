@@ -8,16 +8,16 @@
   <modal #dayItemModal>
     <modal-header>
       <div class="col-lg-11" style="font-size: 17px">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
           <b>Dátum</b>&nbsp;&nbsp;{{editedDayItem?.day}}.{{editedDayItem?.month}}.{{editedDayItem?.yearValue}}
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-8">
           <b>Pracovník</b>&nbsp;&nbsp;{{editedDayItem?.person?.firstName}} {{editedDayItem?.person?.lastName}}
         </div>
       </div>
     </modal-header>
     <modal-content>
-      <form class="form-horizontal row" role="form">
+      <form #dayItemRecordForm="ngForm" class="form-horizontal row" role="form">
         <div class="col-lg-6">
           <div class="form-group">
             <label for="type" class="col-sm-4 control-label">Typ</label>
@@ -63,7 +63,7 @@
       </table>
     </modal-content>
     <modal-footer>
-      <button class="btn btn-primary" (click)="saveDayItem()">Potvrdiť</button>
+      <button type="submit" [disabled]="!dayItemRecordForm.form.valid" class="btn btn-primary" (click)="saveDayItem()">Potvrdiť</button>
       <button class="btn btn-default" (click)="close()">Zrušiť</button>
     </modal-footer>
   </modal>

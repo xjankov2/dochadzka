@@ -19,6 +19,8 @@ import {EnumService} from "./shared/service/enum.service";
 import {RecordTypeApi} from "./rest/api/RecordTypeApi";
 import {SelectModule} from "./shared/ng2-select/select.module";
 import {SelectComponent} from "./shared/select/select.component";
+import {HolidayApi} from "./rest/api/HolidayApi";
+import {HolidayService} from "./shared/service/holiday.service";
 
 @NgModule({
   declarations: [
@@ -42,8 +44,10 @@ import {SelectComponent} from "./shared/select/select.component";
     PersonApi,
     DayItemApi,
     RecordTypeApi,
+    HolidayApi,
     PersonService,
     EnumService,
+    HolidayService,
     PersonResolver
   ],
   bootstrap: [AppComponent]

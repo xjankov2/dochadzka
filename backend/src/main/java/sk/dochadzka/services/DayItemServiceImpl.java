@@ -42,6 +42,9 @@ public class DayItemServiceImpl implements DayItemService {
     @Autowired
     private RecordTypeRepository recordTypeRepository;
 
+    @Autowired
+    private HolidayService holidayService;
+
     @Override
     public List<DayItem> getAllDayItems() {
         return dayItemRepository.findAll();
@@ -98,27 +101,31 @@ public class DayItemServiceImpl implements DayItemService {
             if (dayInEnteredMonthAndYear.getDayOfWeek() == DayOfWeek.SATURDAY ||
                 dayInEnteredMonthAndYear.getDayOfWeek() == DayOfWeek.SUNDAY) continue;
 
+            if (!holidayService.searchHoliday(day, date.getMonthValue(), date.getYear()).isEmpty()) continue;
+
             for (Person person : personRepository.findAll()) {
-                List<DayItem> existingDate = dayItemRepository.findByPersonAndDayAndMonthAndYearValue(person, day, date.getMonthValue(), date.getYear());
+                DayItem existingDate = dayItemRepository.findByPersonAndDayAndMonthAndYearValue(person, day, date.getMonthValue(), date.getYear());
 
                 LOG.debug("Person {} has dayItem in {} : {}", new Object[]{person, dayInEnteredMonthAndYear, existingDate != null});
 
-                if (!existingDate.isEmpty()) continue;
+                if (existingDate != null && !existingDate.getRecordSet().isEmpty()) continue;;
 
-                DayItem newDayItem = new DayItem();
-                newDayItem.setDay(dayInEnteredMonthAndYear.getDayOfMonth());
-                newDayItem.setMonth(dayInEnteredMonthAndYear.getMonthValue());
-                newDayItem.setYearValue(dayInEnteredMonthAndYear.getYear());
-                newDayItem.setPerson(person);
+                if (existingDate == null) {
+                    existingDate = new DayItem();
+                    existingDate.setDay(dayInEnteredMonthAndYear.getDayOfMonth());
+                    existingDate.setMonth(dayInEnteredMonthAndYear.getMonthValue());
+                    existingDate.setYearValue(dayInEnteredMonthAndYear.getYear());
+                    existingDate.setPerson(person);
+                }
 
                 DayItemRecord dayItemRecord = new DayItemRecord();
-                dayItemRecord.setDayItem(newDayItem);
+                dayItemRecord.setDayItem(existingDate);
                 dayItemRecord.setHoursCount(8);
                 dayItemRecord.setType(recordTypeRepository.findOne("PRESENT"));
 
-                newDayItem.getRecordSet().add(dayItemRecord);
+                existingDate.getRecordSet().add(dayItemRecord);
 
-                dayItemRepository.save(newDayItem);
+                dayItemRepository.save(existingDate);
             }
 
         }
