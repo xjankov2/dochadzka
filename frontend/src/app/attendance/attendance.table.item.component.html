@@ -63,7 +63,7 @@
       </table>
     </modal-content>
     <modal-footer>
-      <button type="submit" [disabled]="!dayItemRecordForm.form.valid" class="btn btn-primary" (click)="saveDayItem()">Potvrdiť</button>
+      <button type="submit" [disabled]="recordItemRecordTypeCode && !dayItemRecordForm.form.valid" class="btn btn-primary" (click)="saveDayItem()">Potvrdiť</button>
       <button class="btn btn-default" (click)="close()">Zrušiť</button>
     </modal-footer>
   </modal>

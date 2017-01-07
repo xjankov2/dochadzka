@@ -15,7 +15,7 @@ public class DayItemRecord {
     private Long id;
 
     @Column
-    private Integer hoursCount;
+    private Double hoursCount;
 
     @Column
     private String otherText;
@@ -37,11 +37,11 @@ public class DayItemRecord {
         this.id = id;
     }
 
-    public Integer getHoursCount() {
+    public Double getHoursCount() {
         return hoursCount;
     }
 
-    public void setHoursCount(Integer hoursCount) {
+    public void setHoursCount(Double hoursCount) {
         this.hoursCount = hoursCount;
     }
 
