@@ -64,6 +64,9 @@ export class AttendanceTableItemComponent implements OnInit {
       type: this.getRecordTypeByCode(this.recordItemRecordTypeCode),
     };
     this.editedDayItem.recordSet.push(recordItem);
+
+    this.recordItemRecordTypeCode = null;
+    this.recordItemHours = null;
   }
 
   removeRecordItem(recordItem:DayItemRecord) {

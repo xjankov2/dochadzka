@@ -11,7 +11,6 @@ import {AttendanceComponent} from "./attendance/attendance.component";
 import {AttendanceTableComponent} from "./attendance/attendance.table.component";
 import {AttendanceTableItemComponent} from "./attendance/attendance.table.item.component";
 import {ModalModule} from "ng2-modal";
-import {PersonResolver} from "./shared/resolver/person.resolver";
 import {PersonService} from "./shared/service/person.service";
 import {PersonApi} from "./rest/api/PersonApi";
 import {DayItemApi} from "./rest/api/DayItemApi";
@@ -22,6 +21,7 @@ import {SelectComponent} from "./shared/select/select.component";
 import {HolidayApi} from "./rest/api/HolidayApi";
 import {HolidayService} from "./shared/service/holiday.service";
 import {AttendanceService} from "./shared/service/attendance.service";
+import {RecordTypeExcludeExistingPipe} from "./shared/pipes/RecordTypeExcludeExistingPipe";
 
 @NgModule({
   declarations: [
@@ -31,7 +31,9 @@ import {AttendanceService} from "./shared/service/attendance.service";
     SelectComponent,
     AttendanceComponent,
     AttendanceTableComponent,
-    AttendanceTableItemComponent
+    AttendanceTableItemComponent,
+
+    RecordTypeExcludeExistingPipe
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -49,8 +51,7 @@ import {AttendanceService} from "./shared/service/attendance.service";
     PersonService,
     AttendanceService,
     EnumService,
-    HolidayService,
-    PersonResolver
+    HolidayService
   ],
   bootstrap: [AppComponent]
 })

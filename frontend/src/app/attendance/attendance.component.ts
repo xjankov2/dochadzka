@@ -29,9 +29,10 @@ export class AttendanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.persons = this.route.snapshot.data['persons'];
-
-    this._loadActualDayItems();
+    this.personService.getPersons().subscribe(persons => {
+      this.persons = persons;
+      this._loadActualDayItems();
+    });
   }
 
   increaseMonth() {

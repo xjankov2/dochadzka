@@ -1,7 +1,5 @@
 1. "INE" dayItemRecordType - pridat text
-2. pridat kontrolu aby nebolo mozne pridat viac rovnakych dayItemRecord
 3. dovolenka tlacidlo
 4. riesenie dovolenky - pri ukladani dayItemRecord typu dovolenka sa bude znizovat cislo dovolenky u daneho cloveka
                       - zobrazit pocet dni dovolenky u cloveka
-5. export daneho mesiaca do excelu
-6. menezment ludi
+5. menezment ludi

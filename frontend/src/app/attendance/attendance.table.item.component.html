@@ -23,7 +23,10 @@
             <label for="type" class="col-sm-4 control-label">Typ</label>
             <div class="col-sm-8">
               <select class="form-control" id="type" [(ngModel)]="recordItemRecordTypeCode" name="type" required>
-                <option *ngFor="let recordType of recordTypes" [value]="recordType.code">{{recordType.description}}</option>
+                <option *ngFor="let recordType of recordTypes | excludeExisting : editedDayItem"
+                        [value]="recordType.code">
+                  {{recordType.description}}
+                </option>
               </select>
             </div>
           </div>

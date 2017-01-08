@@ -15,7 +15,7 @@
     <button class="btn btn-primary">Dovolenka</button>
     <button class="btn btn-primary" (click)="exportIntoCsv()">Export</button>
 
-    <div style="padding-top: 10px">
+    <div style="padding-top: 10px" *ngIf="dayItems">
       <emp-attendance-table [month]="selectedMonth" [yearValue]="selectedYear" [persons]="persons" [dayItems]="dayItems"></emp-attendance-table>
     </div>
 
