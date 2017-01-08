@@ -2,7 +2,10 @@
   <thead>
   <tr>
     <th style="width: 15px"></th>
-    <th *ngFor="let person of persons">{{person.firstName}} {{person.lastName}}</th>
+    <th *ngFor="let person of persons">
+      <div>{{person.firstName}} {{person.lastName}}</div>
+      <div>Odpracované dní: {{getWorkedDaysCount(person)}}</div>
+    </th>
   </tr>
   </thead>
   <tbody>

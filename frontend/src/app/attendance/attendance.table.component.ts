@@ -38,6 +38,20 @@ export class AttendanceTableComponent {
     }
   }
 
+  getWorkedDaysCount(person:Person):number {
+    if (!this.dayItems) return 0;
+
+    let workedCount:number = 0;
+    this.dayItems
+      .filter(dayItem => person.id === dayItem.person.id)
+      .forEach(dayItem => {
+        dayItem.recordSet
+          .filter(dayItemRecord => dayItemRecord.type.code == 'PRESENT' || dayItemRecord.type.code == 'COMPENSATORY')
+          .forEach(presentDayItemRecord => workedCount += presentDayItemRecord.hoursCount);
+      });
+    return workedCount / 8;
+  }
+
   getTableItemClass(person:Person, day:number, month:number, year:number):Observable<Object> {
     return this.holidayService.getHolidays()
       .map(holidays => {
