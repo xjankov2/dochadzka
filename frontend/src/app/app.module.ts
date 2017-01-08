@@ -21,6 +21,7 @@ import {SelectModule} from "./shared/ng2-select/select.module";
 import {SelectComponent} from "./shared/select/select.component";
 import {HolidayApi} from "./rest/api/HolidayApi";
 import {HolidayService} from "./shared/service/holiday.service";
+import {AttendanceService} from "./shared/service/attendance.service";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {HolidayService} from "./shared/service/holiday.service";
     RecordTypeApi,
     HolidayApi,
     PersonService,
+    AttendanceService,
     EnumService,
     HolidayService,
     PersonResolver

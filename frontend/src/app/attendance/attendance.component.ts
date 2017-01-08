@@ -6,6 +6,8 @@ import {Person} from "../rest/model/Person";
 import {ActivatedRoute} from "@angular/router";
 import {PersonService} from "../shared/service/person.service";
 import {DayItemsContainer} from "../rest/model/DayItemsContainer";
+import * as json2csv from "json2csv";
+import {AttendanceService} from "../shared/service/attendance.service";
 
 @Component({
   selector: 'emp-attendance',
@@ -19,7 +21,7 @@ export class AttendanceComponent implements OnInit {
   persons:Array<Person>;
   dayItems:Array<DayItem>;
 
-  constructor(private personService: PersonService, private route:ActivatedRoute) {
+  constructor(private personService: PersonService, private attendanceService:AttendanceService, private route:ActivatedRoute) {
     let now:Date = new Date();
 
     this.selectedMonth = now.getMonth() + 1;
@@ -64,6 +66,56 @@ export class AttendanceComponent implements OnInit {
 
   prefill() {
     this._parseDayItemsObservable(this.personService.refillPerson(this.selectedMonth, this.selectedYear))
+  }
+
+  exportIntoCsv() {
+    let exportData = this._prepareExportData();
+
+    let blob = new Blob([exportData], {type: 'application/csv'});
+
+    let a = window.document.createElement("a");
+    a.href = window.URL.createObjectURL(blob);
+    a.download = 'export_' + this.selectedMonth + '_' + this.selectedYear + '.xls';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a)
+  }
+
+  _prepareExportData() {
+    let fieldNames = ['Dátum'];
+    this.persons.forEach(person => {
+      fieldNames.push(
+        person.firstName + ' ' + person.lastName + ', Odpracované dní: ' + this.attendanceService.getWorkedDaysCount(this.dayItems, person));
+    });
+
+    let fields = ['date'];
+    for (var _i = 0; _i < this.persons.length; _i++) {
+      fields.push('data' + _i);
+    }
+
+    let data = [];
+    let totalDays:number =  new Date(this.selectedYear, this.selectedMonth, 0).getDate();
+    for (var dayIndex = 1; dayIndex <= totalDays; dayIndex++) {
+      let dataRow:Object = {'date': dayIndex + '.' + this.selectedMonth + '.'};
+      for (var personIndex = 0; personIndex < this.persons.length; personIndex++) {
+        let person:Person = this.persons[personIndex];
+        let dayItem:DayItem = this.attendanceService.findDayItem(this.dayItems, person, dayIndex, this.selectedMonth, this.selectedYear);
+
+        let dayItemValue:string = "";
+        if (dayItem && dayItem.recordSet && dayItem.recordSet.length > 0) {
+          dayItem.recordSet.forEach(dayItemRecord => {
+            dayItemValue += dayItemRecord.type.description;
+            if (dayItemRecord.type.hoursType) {
+              dayItemValue += '(' + dayItemRecord.hoursCount + ')'
+            }
+            dayItemValue += ',';
+          });
+        }
+        dataRow['data' + personIndex] = dayItemValue;
+      }
+      data.push(dataRow);
+    }
+    return json2csv({ data: data, fields: fields, fieldNames: fieldNames });
   }
 
   _loadActualDayItems() {

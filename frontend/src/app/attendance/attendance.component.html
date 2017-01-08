@@ -13,6 +13,7 @@
 
     <button class="btn btn-primary" (click)="prefill()">Predvyplň</button>
     <button class="btn btn-primary">Dovolenka</button>
+    <button class="btn btn-primary" (click)="exportIntoCsv()">Export</button>
 
     <div style="padding-top: 10px">
       <emp-attendance-table [month]="selectedMonth" [yearValue]="selectedYear" [persons]="persons" [dayItems]="dayItems"></emp-attendance-table>

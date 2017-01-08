@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {Month} from "../shared/enum/Month";
 import {DayItem} from "../rest/model/DayItem";
 import {Person} from "../rest/model/Person";
-import {HolidayApi} from "../rest/api/HolidayApi";
 import {HolidayService} from "../shared/service/holiday.service";
 import {Observable} from "rxjs";
+import {AttendanceService} from "../shared/service/attendance.service";
 
 @Component({
   selector: 'emp-attendance-table',
@@ -30,7 +30,7 @@ export class AttendanceTableComponent {
     this.updateTable();
   }
 
-  constructor(private holidayService:HolidayService) {}
+  constructor(private holidayService:HolidayService, private attendanceService:AttendanceService) {}
 
   updateTable(): void {
     if (this._year && this._month) {
@@ -39,17 +39,7 @@ export class AttendanceTableComponent {
   }
 
   getWorkedDaysCount(person:Person):number {
-    if (!this.dayItems) return 0;
-
-    let workedCount:number = 0;
-    this.dayItems
-      .filter(dayItem => person.id === dayItem.person.id)
-      .forEach(dayItem => {
-        dayItem.recordSet
-          .filter(dayItemRecord => dayItemRecord.type.code == 'PRESENT' || dayItemRecord.type.code == 'COMPENSATORY')
-          .forEach(presentDayItemRecord => workedCount += presentDayItemRecord.hoursCount);
-      });
-    return workedCount / 8;
+    return this.attendanceService.getWorkedDaysCount(this.dayItems, person);
   }
 
   getTableItemClass(person:Person, day:number, month:number, year:number):Observable<Object> {
@@ -86,17 +76,7 @@ export class AttendanceTableComponent {
   }
 
   findDayItem(person : Person, day:number):DayItem {
-    if (!this.dayItems) {
-      return null;
-    } else {
-      return this.dayItems.find(dayItem => {
-        return person.id === dayItem.person.id &&
-          dayItem.day === day &&
-          dayItem.month === this._month &&
-          dayItem.yearValue === this._year;
-      });
-
-    }
+    return this.attendanceService.findDayItem(this.dayItems, person, day, this._month, this._year);
   }
 
   handleDayItemUpdate(updatedDayItem:DayItem) {
