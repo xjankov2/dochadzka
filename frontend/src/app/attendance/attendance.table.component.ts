@@ -69,8 +69,8 @@ export class AttendanceTableComponent {
         }
         return {
           'empty-day-item': emptyDayItem,
-          'bg-success': setDayItem,
-          'bg-danger': weekend || holiday,
+          'set-item-set': setDayItem,
+          'weekend-item-set': weekend || holiday,
         }
       });
   }

@@ -1,2 +1,2 @@
-mvn -pl backend clean install -Pdb-initialize
-mvn -pl backend spring-boot:start -Pdb-initialize
+mvn clean install
+java -Ddb-init=true -jar backend/target/backend.jar --db-generate=create

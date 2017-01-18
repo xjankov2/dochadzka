@@ -1,3 +1,5 @@
+@import "variables.less";
+
 /*!
  * Start Bootstrap - SB Admin (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
@@ -234,18 +236,20 @@ ul.alert-dropdown {
 }
 
 .empty-day-item {
-  background-color: @gray-lighter;
+  background-color: @day-item-empty-color;
   &:hover {
-  background-color: darken(@gray-lighter, 9%);
+  background-color: darken(@day-item-empty-color, 9%);
   }
 }
-.bg-danger {
+.set-item-set {
+  background-color: @day-item-set-color;
   &:hover {
-    background-color: darken(@state-danger-bg, 9%);
+    background-color: darken(@day-item-set-color, 9%);
   }
 }
-.bg-success {
+.weekend-item-set {
+  background-color: @weekend-item-set-color;
   &:hover {
-    background-color: darken(@state-success-bg, 9%);
+    background-color: darken(@weekend-item-set-color, 9%);
   }
 }

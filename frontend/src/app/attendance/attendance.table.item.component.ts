@@ -30,7 +30,7 @@ export class AttendanceTableItemComponent implements OnInit {
 
   editedDayItem:DayItem;
 
-  recordItemHours:number;
+  recordItem:DayItemRecord;
 
   recordItemRecordTypeCode: string;
 
@@ -41,6 +41,7 @@ export class AttendanceTableItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.recordItem = {};
     this.enumService.getRecordTypes().subscribe(response => {
       this.recordTypes = response;
     });
@@ -48,7 +49,7 @@ export class AttendanceTableItemComponent implements OnInit {
 
   editDayItem() {
     this.recordItemRecordTypeCode = null;
-    this.recordItemHours = null;
+    this.recordItem = {};
     if (!this.dayItem) {
       this.editedDayItem = this._createNewDayItem();
     } else {
@@ -59,18 +60,26 @@ export class AttendanceTableItemComponent implements OnInit {
   }
 
   addRecordItem() {
-    let recordItem:DayItemRecord = {
-      hoursCount: this.recordItemHours,
-      type: this.getRecordTypeByCode(this.recordItemRecordTypeCode),
-    };
-    this.editedDayItem.recordSet.push(recordItem);
+    this.recordItem.type = this.getRecordTypeByCode(this.recordItemRecordTypeCode);
+    if (this.recordItem.id == null) {
+      this.editedDayItem.recordSet.push(this.recordItem);
+    } else {
+      let existingRecordItem:DayItemRecord = this.editedDayItem.recordSet.find(recordItem => recordItem.id == this.recordItem.id);
+      let existingRecordItemIndex:number = this.editedDayItem.recordSet.indexOf(existingRecordItem);
+      this.editedDayItem.recordSet[existingRecordItemIndex] = this.recordItem;
+    }
 
     this.recordItemRecordTypeCode = null;
-    this.recordItemHours = null;
+    this.recordItem = {};
   }
 
   removeRecordItem(recordItem:DayItemRecord) {
     this.editedDayItem.recordSet.splice(this.editedDayItem.recordSet.indexOf(recordItem), 1);
+  }
+
+  editRecordItem(recordItem:DayItemRecord) {
+    this.recordItem = JSON.parse(JSON.stringify(recordItem));
+    this.recordItemRecordTypeCode = recordItem.type.code;
   }
 
   saveDayItem() {

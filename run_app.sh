@@ -1,2 +1,2 @@
-mvn -pl backend clean install
-mvn -pl backend spring-boot:run
+mvn clean install
+java -jar backend/target/backend.jar

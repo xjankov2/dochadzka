@@ -11,10 +11,6 @@
 
     <artifactId>backend</artifactId>
 
-    <properties>
-        <schema-generate-strategy>update</schema-generate-strategy>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,13 +32,11 @@
     </dependencies>
 
     <build>
+        <finalName>backend</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-                <excludes>
-                    <exclude>data.sql</exclude>
-                </excludes>
             </resource>
         </resources>
         <plugins>
@@ -69,24 +63,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>db-initialize</id>
-            <properties>
-                <schema-generate-strategy>create</schema-generate-strategy>
-            </properties>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                        <includes>
-                            <include>data.sql</include>
-                        </includes>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-    </profiles>
 
 </project>
