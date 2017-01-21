@@ -1,0 +1,1 @@
+java -Ddb-init=true -jar application.jar --db-generate=create --db-path:C:\Documents\DB
