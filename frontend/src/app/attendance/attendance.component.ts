@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {Month} from "../shared/enum/Month";
 import {DayItem} from "../rest/model/DayItem";
@@ -8,6 +8,7 @@ import {PersonService} from "../shared/service/person.service";
 import {DayItemsContainer} from "../rest/model/DayItemsContainer";
 import * as json2csv from "json2csv";
 import {AttendanceService} from "../shared/service/attendance.service";
+import {HolidayComponent} from "./holiday/holiday.component";
 
 @Component({
   selector: 'emp-attendance',
@@ -20,6 +21,8 @@ export class AttendanceComponent implements OnInit {
   selectedYear:number;
   persons:Array<Person>;
   dayItems:Array<DayItem>;
+
+  @ViewChild('holiday') holiday:HolidayComponent;
 
   constructor(private personService: PersonService, private attendanceService:AttendanceService, private route:ActivatedRoute) {
     let now:Date = new Date();
@@ -67,6 +70,10 @@ export class AttendanceComponent implements OnInit {
 
   prefill() {
     this._parseDayItemsObservable(this.personService.refillPerson(this.selectedMonth, this.selectedYear))
+  }
+
+  openHoliday() {
+    this.holiday.open();
   }
 
   exportIntoCsv() {

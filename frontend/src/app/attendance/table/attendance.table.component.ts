@@ -1,10 +1,10 @@
 import {Component, Input} from "@angular/core";
-import {Month} from "../shared/enum/Month";
-import {DayItem} from "../rest/model/DayItem";
-import {Person} from "../rest/model/Person";
-import {HolidayService} from "../shared/service/holiday.service";
+import {Month} from "../../shared/enum/Month";
+import {DayItem} from "../../rest/model/DayItem";
+import {Person} from "../../rest/model/Person";
+import {HolidayService} from "../../shared/service/holiday.service";
 import {Observable} from "rxjs";
-import {AttendanceService} from "../shared/service/attendance.service";
+import {AttendanceService} from "../../shared/service/attendance.service";
 
 @Component({
   selector: 'emp-attendance-table',

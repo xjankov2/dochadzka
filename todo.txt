@@ -1,5 +1,5 @@
-1. "INE" dayItemRecordType - pridat text
-3. dovolenka tlacidlo
-4. riesenie dovolenky - pri ukladani dayItemRecord typu dovolenka sa bude znizovat cislo dovolenky u daneho cloveka
+1. dovolenka tlacidlo
+    - dokoncit modalne okno
+2. riesenie dovolenky - pri ukladani dayItemRecord typu dovolenka sa bude znizovat cislo dovolenky u daneho cloveka
                       - zobrazit pocet dni dovolenky u cloveka
-5. menezment ludi
+3. menezment ludi

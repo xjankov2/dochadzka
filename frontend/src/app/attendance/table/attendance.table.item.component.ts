@@ -1,12 +1,12 @@
 import {Component, Input, ViewChild, OnInit, Output} from "@angular/core";
-import {DayItem} from "../rest/model/DayItem";
-import {Person} from "../rest/model/Person";
-import {Month} from "../shared/enum/Month";
-import {DayItemRecord} from "../rest/model/DayItemRecord";
-import {EnumService} from "../shared/service/enum.service";
-import {RecordType} from "../rest/model/RecordType";
+import {DayItem} from "../../rest/model/DayItem";
+import {Person} from "../../rest/model/Person";
+import {Month} from "../../shared/enum/Month";
+import {DayItemRecord} from "../../rest/model/DayItemRecord";
+import {EnumService} from "../../shared/service/enum.service";
+import {RecordType} from "../../rest/model/RecordType";
 import {Modal} from "ng2-modal";
-import {DayItemApi} from "../rest/api/DayItemApi";
+import {DayItemApi} from "../../rest/api/DayItemApi";
 import {Headers} from "@angular/http";
 import {EventEmitter} from "@angular/common/src/facade/async";
 
@@ -32,8 +32,6 @@ export class AttendanceTableItemComponent implements OnInit {
 
   recordItem:DayItemRecord;
 
-  recordItemRecordTypeCode: string;
-
   recordTypes:Array<RecordType>;
 
   constructor(private enumService:EnumService, private dayItemApi:DayItemApi) {
@@ -48,7 +46,6 @@ export class AttendanceTableItemComponent implements OnInit {
   }
 
   editDayItem() {
-    this.recordItemRecordTypeCode = null;
     this.recordItem = {};
     if (!this.dayItem) {
       this.editedDayItem = this._createNewDayItem();
@@ -60,7 +57,6 @@ export class AttendanceTableItemComponent implements OnInit {
   }
 
   addRecordItem() {
-    this.recordItem.type = this.getRecordTypeByCode(this.recordItemRecordTypeCode);
     if (this.recordItem.id == null) {
       this.editedDayItem.recordSet.push(this.recordItem);
     } else {
@@ -69,7 +65,6 @@ export class AttendanceTableItemComponent implements OnInit {
       this.editedDayItem.recordSet[existingRecordItemIndex] = this.recordItem;
     }
 
-    this.recordItemRecordTypeCode = null;
     this.recordItem = {};
   }
 
@@ -79,12 +74,12 @@ export class AttendanceTableItemComponent implements OnInit {
 
   editRecordItem(recordItem:DayItemRecord) {
     this.recordItem = JSON.parse(JSON.stringify(recordItem));
-    this.recordItemRecordTypeCode = recordItem.type.code;
   }
 
   saveDayItem() {
-    if (this.recordItemRecordTypeCode &&
-        this.editedDayItem.recordSet.filter(dayItemRecord => dayItemRecord.type.code == this.recordItemRecordTypeCode).length == 0) {
+    if (this.recordItem.type &&
+        this.editedDayItem.recordSet.filter(
+          dayItemRecord => this.recordItem.type && dayItemRecord.type.code == this.recordItem.type.code).length == 0) {
       this.addRecordItem();
     }
     this.dayItemApi.defaultHeaders = new Headers({'Content-Type': 'application/json'});
@@ -96,13 +91,6 @@ export class AttendanceTableItemComponent implements OnInit {
 
   close() {
     this.dayItemModal.close();
-  }
-
-  getRecordTypeByCode(recordTypeCode):RecordType {
-    if (this.recordTypes) {
-      return this.recordTypes.find(recordType => recordType.code === recordTypeCode)
-    }
-    return null;
   }
 
   _createNewDayItem():DayItem {

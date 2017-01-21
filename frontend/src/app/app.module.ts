@@ -8,8 +8,8 @@ import {AppComponent} from "./app.component";
 import {HeaderComponent} from "./layout/header/header.component";
 import {MenuComponent} from "./layout/menu/menu.component";
 import {AttendanceComponent} from "./attendance/attendance.component";
-import {AttendanceTableComponent} from "./attendance/attendance.table.component";
-import {AttendanceTableItemComponent} from "./attendance/attendance.table.item.component";
+import {AttendanceTableComponent} from "./attendance/table/attendance.table.component";
+import {AttendanceTableItemComponent} from "./attendance/table/attendance.table.item.component";
 import {ModalModule} from "ng2-modal";
 import {PersonService} from "./shared/service/person.service";
 import {PersonApi} from "./rest/api/PersonApi";
@@ -22,6 +22,8 @@ import {HolidayApi} from "./rest/api/HolidayApi";
 import {HolidayService} from "./shared/service/holiday.service";
 import {AttendanceService} from "./shared/service/attendance.service";
 import {RecordTypeExcludeExistingPipe} from "./shared/pipes/RecordTypeExcludeExistingPipe";
+import {HolidayComponent} from "./attendance/holiday/holiday.component";
+import { DatepickerModule as MaterialDatepickerModule } from 'angular2-material-datepicker'
 
 @NgModule({
   declarations: [
@@ -32,11 +34,13 @@ import {RecordTypeExcludeExistingPipe} from "./shared/pipes/RecordTypeExcludeExi
     AttendanceComponent,
     AttendanceTableComponent,
     AttendanceTableItemComponent,
+    HolidayComponent,
 
     RecordTypeExcludeExistingPipe
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    MaterialDatepickerModule,
     BrowserModule,
     SelectModule,
     FormsModule,
