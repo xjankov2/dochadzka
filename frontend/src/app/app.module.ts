@@ -24,6 +24,7 @@ import {AttendanceService} from "./shared/service/attendance.service";
 import {RecordTypeExcludeExistingPipe} from "./shared/pipes/RecordTypeExcludeExistingPipe";
 import {HolidayComponent} from "./attendance/holiday/holiday.component";
 import { DatepickerModule as MaterialDatepickerModule } from 'angular2-material-datepicker'
+import {TooltipModule} from "ngx-tooltip";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { DatepickerModule as MaterialDatepickerModule } from 'angular2-material-
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    TooltipModule,
     MaterialDatepickerModule,
     BrowserModule,
     SelectModule,

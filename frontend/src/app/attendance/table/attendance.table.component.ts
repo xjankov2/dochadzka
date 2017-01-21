@@ -42,6 +42,10 @@ export class AttendanceTableComponent {
     return this.attendanceService.getWorkedDaysCount(this.dayItems, person);
   }
 
+  getHolidayCount(person:Person):number {
+    return this.attendanceService.getHolidayCount(this.dayItems, person);
+  }
+
   getTableItemClass(person:Person, day:number, month:number, year:number):Observable<Object> {
     return this.holidayService.getHolidays()
       .map(holidays => {

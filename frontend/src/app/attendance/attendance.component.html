@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
     <h3>
-      Dochádzka
       <a (click)="decreaseMonth()" style="cursor: pointer;"><i class="fa fa-chevron-left"></i></a>
       <a (click)="increaseMonth()" style="cursor: pointer;"><i class="fa fa-chevron-right"></i></a>
       {{selectedMonth}}
@@ -11,9 +10,9 @@
       {{selectedYear}}
     </h3>
 
-    <button class="btn btn-primary" (click)="prefill()">Predvyplň</button>
-    <button class="btn btn-primary" (click)="openHoliday()">Dovolenka</button>
-    <button class="btn btn-primary" (click)="exportIntoCsv()">Export</button>
+    <button class="btn btn-primary btn-sm" (click)="prefill()">Predvyplň</button>
+    <button class="btn btn-primary btn-sm" (click)="openHoliday()">Dovolenka</button>
+    <button class="btn btn-primary btn-sm" (click)="exportIntoCsv()">Export</button>
 
     <div style="padding-top: 10px" *ngIf="dayItems">
       <emp-attendance-table [month]="selectedMonth" [yearValue]="selectedYear" [persons]="persons" [dayItems]="dayItems"></emp-attendance-table>

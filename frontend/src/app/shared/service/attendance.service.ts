@@ -32,5 +32,19 @@ export class AttendanceService {
     return workedCount / 8;
   }
 
+  getHolidayCount(dayItems:Array<DayItem>, person:Person):number {
+    if (!dayItems) return 0;
+
+    let holidayCount:number = 0;
+    dayItems
+      .filter(dayItem => person.id === dayItem.person.id)
+      .forEach(dayItem => {
+        dayItem.recordSet
+          .filter(dayItemRecord => dayItemRecord.type.code == 'VACATION')
+          .forEach(presentDayItemRecord => holidayCount ++);
+      });
+    return holidayCount;
+  }
+
 
 }

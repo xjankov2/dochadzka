@@ -83,7 +83,7 @@ export class AttendanceComponent implements OnInit {
 
     let a = window.document.createElement("a");
     a.href = window.URL.createObjectURL(blob);
-    a.download = 'export_' + this.selectedMonth + '_' + this.selectedYear + '.xls';
+    a.download = 'export_' + this.selectedMonth + '_' + this.selectedYear + '.csv';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a)
@@ -93,7 +93,9 @@ export class AttendanceComponent implements OnInit {
     let fieldNames = ['Dátum'];
     this.persons.forEach(person => {
       fieldNames.push(
-        person.firstName + ' ' + person.lastName + ', Odpracované dní: ' + this.attendanceService.getWorkedDaysCount(this.dayItems, person));
+        person.firstName + ' ' + person.lastName +
+          ',Odpracované dní: ' + this.attendanceService.getWorkedDaysCount(this.dayItems, person) +
+          ',Dovolenky: ' + this.attendanceService.getHolidayCount(this.dayItems, person));
     });
 
     let fields = ['date'];

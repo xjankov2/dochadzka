@@ -2,7 +2,7 @@
   <span *ngIf="!dayItem || dayItem?.recordSet.length == 0">&nbsp;</span>
 
   <div *ngFor="let recordItem of dayItem?.recordSet">
-    {{recordItem.type.description}} <span *ngIf="recordItem.type.hoursType">({{recordItem.hoursCount}})</span>
+    {{recordItem.type.description}} <span *ngIf="recordItem.type.hoursType" class="badge">{{recordItem.hoursCount}}</span>
   </div>
 
   <modal #dayItemModal>
@@ -75,7 +75,9 @@
                 <span *ngIf="!recordItem?.type?.hoursType">-</span>
               </td>
               <td>{{recordItem.otherText}}</td>
-              <td><a style="font-size: 20px;color: orange;" (click)="removeRecordItem(recordItem)"><i class="fa fa-trash"></i></a></td>
+              <td>
+                <button style="font-size: 13px;" class="btn btn-sm btn-warning" (click)="removeRecordItem(recordItem)"><i class="fa fa-trash"></i></button>
+              </td>
             </tr>
             </tbody>
           </table>
