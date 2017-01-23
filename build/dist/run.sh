@@ -1,1 +1,1 @@
-java -jar application.jar
+java -Dfile.encoding=UTF8 -jar application.jar
