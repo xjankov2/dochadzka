@@ -79,7 +79,7 @@ export class AttendanceComponent implements OnInit {
   exportIntoCsv() {
     let exportData = this._prepareExportData();
 
-    let blob = new Blob([exportData], {type: 'application/csv'});
+    let blob = new Blob(["\ufffe", exportData], {type: 'application/csv'});
 
     let a = window.document.createElement("a");
     a.href = window.URL.createObjectURL(blob);
