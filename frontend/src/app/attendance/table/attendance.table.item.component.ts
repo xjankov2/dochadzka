@@ -1,14 +1,13 @@
-import {Component, Input, ViewChild, OnInit, Output} from "@angular/core";
-import {DayItem} from "../../rest/model/DayItem";
-import {Person} from "../../rest/model/Person";
-import {Month} from "../../shared/enum/Month";
-import {DayItemRecord} from "../../rest/model/DayItemRecord";
-import {EnumService} from "../../shared/service/enum.service";
-import {RecordType} from "../../rest/model/RecordType";
-import {Modal} from "ng2-modal";
-import {DayItemApi} from "../../rest/api/DayItemApi";
-import {Headers} from "@angular/http";
-import {EventEmitter} from "@angular/common/src/facade/async";
+import {Component, Input, ViewChild, OnInit, Output, EventEmitter} from '@angular/core';
+import {DayItem} from '../../rest/model/DayItem';
+import {Person} from '../../rest/model/Person';
+import {Month} from '../../shared/enum/Month';
+import {DayItemRecord} from '../../rest/model/DayItemRecord';
+import {EnumService} from '../../shared/service/enum.service';
+import {RecordType} from '../../rest/model/RecordType';
+import {Modal} from 'ng2-modal';
+import {DayItemApi} from '../../rest/api/DayItemApi';
+import {Headers} from '@angular/http';
 
 @Component({
   selector: 'emp-attendance-table-item',
@@ -17,24 +16,24 @@ import {EventEmitter} from "@angular/common/src/facade/async";
 })
 export class AttendanceTableItemComponent implements OnInit {
 
-  @Input() dayItem:DayItem;
-  @Input() person:Person;
+  @Input() dayItem: DayItem;
+  @Input() person: Person;
 
-  @Input() day:number;
-  @Input() month:Month;
-  @Input() yearValue:number;
+  @Input() day: number;
+  @Input() month: Month;
+  @Input() yearValue: number;
 
   @Output() dayItemUpdated = new EventEmitter<DayItem>();
 
-  @ViewChild('dayItemModal') dayItemModal:Modal;
+  @ViewChild('dayItemModal') dayItemModal: Modal;
 
-  editedDayItem:DayItem;
+  editedDayItem: DayItem;
 
-  recordItem:DayItemRecord;
+  recordItem: DayItemRecord;
 
-  recordTypes:Array<RecordType>;
+  recordTypes: Array<RecordType>;
 
-  constructor(private enumService:EnumService, private dayItemApi:DayItemApi) {
+  constructor(private enumService: EnumService, private dayItemApi: DayItemApi) {
 
   }
 
@@ -60,26 +59,26 @@ export class AttendanceTableItemComponent implements OnInit {
     if (this.recordItem.id == null) {
       this.editedDayItem.recordSet.push(this.recordItem);
     } else {
-      let existingRecordItem:DayItemRecord = this.editedDayItem.recordSet.find(recordItem => recordItem.id == this.recordItem.id);
-      let existingRecordItemIndex:number = this.editedDayItem.recordSet.indexOf(existingRecordItem);
+      let existingRecordItem: DayItemRecord = this.editedDayItem.recordSet.find(recordItem => recordItem.id === this.recordItem.id);
+      let existingRecordItemIndex: number = this.editedDayItem.recordSet.indexOf(existingRecordItem);
       this.editedDayItem.recordSet[existingRecordItemIndex] = this.recordItem;
     }
 
     this.recordItem = {};
   }
 
-  removeRecordItem(recordItem:DayItemRecord) {
+  removeRecordItem(recordItem: DayItemRecord) {
     this.editedDayItem.recordSet.splice(this.editedDayItem.recordSet.indexOf(recordItem), 1);
   }
 
-  editRecordItem(recordItem:DayItemRecord) {
+  editRecordItem(recordItem: DayItemRecord) {
     this.recordItem = JSON.parse(JSON.stringify(recordItem));
   }
 
   saveDayItem() {
     if (this.recordItem.type &&
         this.editedDayItem.recordSet.filter(
-          dayItemRecord => this.recordItem.type && dayItemRecord.type.code == this.recordItem.type.code).length == 0) {
+          dayItemRecord => this.recordItem.type && dayItemRecord.type.code === this.recordItem.type.code).length === 0) {
       this.addRecordItem();
     }
     this.dayItemApi.defaultHeaders = new Headers({'Content-Type': 'application/json'});
@@ -93,12 +92,12 @@ export class AttendanceTableItemComponent implements OnInit {
     this.dayItemModal.close();
   }
 
-  _createNewDayItem():DayItem {
+  _createNewDayItem(): DayItem {
     return {
-      day:this.day,
-      month:this.month,
-      yearValue:this.yearValue,
-      recordSet:new Array()
+      day: this.day,
+      month: this.month,
+      yearValue: this.yearValue,
+      recordSet: new Array()
     };
   }
 

@@ -1,5 +1,5 @@
 -- RECORD_TYPE
-insert into record_type (CODE, DESCRIPTION, HOURS_TYPE, ATTEND_TYPE) values ('PRESENT', 'Prítomný', true, true);
+insert into record_type (CODE, DESCRIPTION, HOURS_TYPE, ATTEND_TYPE) values ('PRESENT', 'Prítomný', false, true);
 insert into record_type (CODE, DESCRIPTION, HOURS_TYPE, ATTEND_TYPE) values ('ABSENT', 'Neprítomný', true, false);
 insert into record_type (CODE, DESCRIPTION, HOURS_TYPE, ATTEND_TYPE) values ('VACATION', 'Dovolenka', false, true);
 insert into record_type (CODE, DESCRIPTION, HOURS_TYPE, ATTEND_TYPE) values ('COMPENSATORY', 'Náhradné voľno', false, true);

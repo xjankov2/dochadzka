@@ -3,10 +3,9 @@
   <tr>
     <th style="width: 15px"></th>
     <th *ngFor="let person of persons">
-      <div>{{person.firstName}} {{person.lastName}}
-        <span class="badge alert-info" tooltip="Odpracované dni">{{getWorkedDaysCount(person)}}</span>
-        <span class="badge alert-info" tooltip="Dovolenka">{{getHolidayCount(person)}}</span>
-      </div>
+      <div>{{person.firstName}} {{person.lastName}}</div>
+      <div style="font-weight: normal; font-size: smaller">Odpracované dni: <span class="badge alert-info">{{getWorkedDaysCount(person)}}</span></div>
+      <div style="font-weight: normal; font-size: smaller">Dovolenka: <span class="badge alert-info">{{getHolidayCount(person)}}</span></div>
     </th>
   </tr>
   </thead>

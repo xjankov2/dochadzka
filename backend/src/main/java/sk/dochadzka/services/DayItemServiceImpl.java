@@ -120,7 +120,6 @@ public class DayItemServiceImpl implements DayItemService {
 
                 DayItemRecord dayItemRecord = new DayItemRecord();
                 dayItemRecord.setDayItem(existingDate);
-                dayItemRecord.setHoursCount(8d);
                 dayItemRecord.setType(recordTypeRepository.findOne("PRESENT"));
 
                 existingDate.getRecordSet().add(dayItemRecord);

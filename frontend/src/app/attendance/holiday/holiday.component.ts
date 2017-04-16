@@ -1,24 +1,24 @@
-import {Component, ViewChild, Input} from "@angular/core";
-import {Modal} from "ng2-modal";
-import {Person} from "../../rest/model/Person";
+import {Component, ViewChild, Input} from '@angular/core';
+import {Modal} from 'ng2-modal';
+import {Person} from '../../rest/model/Person';
 
 @Component({
   selector: 'emp-holiday',
   templateUrl: './holiday.component.html',
 })
-export class HolidayComponent{
+export class HolidayComponent {
 
-  @Input('persons') persons:Array<Person>;
+  @Input('persons') persons: Array<Person>;
 
-  @ViewChild('holiday') holiday:Modal;
+  @ViewChild('holiday') holiday: Modal;
 
-  person:Person;
+  person: Person;
 
-  dateFrom:Date;
+  dateFrom: Date;
 
-  dateTo:Date;
+  dateTo: Date;
 
-  dateFormat:string = "DD.MM.YYYY";
+  dateFormat = 'DD.MM.YYYY';
 
   constructor() {
 

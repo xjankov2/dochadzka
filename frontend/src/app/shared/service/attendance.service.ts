@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {Person} from "../../rest/model/Person";
-import {DayItem} from "../../rest/model/DayItem";
+import {Injectable} from '@angular/core';
+import {Person} from '../../rest/model/Person';
+import {DayItem} from '../../rest/model/DayItem';
 
 @Injectable()
 export class AttendanceService {
 
-  findDayItem(dayItems:Array<DayItem>, person : Person, day:number, month:number, year:number):DayItem {
+  findDayItem(dayItems: Array<DayItem>, person: Person, day: number, month: number, year: number): DayItem {
     if (!dayItems) {
       return null;
     } else {
@@ -18,29 +18,35 @@ export class AttendanceService {
     }
   }
 
-  getWorkedDaysCount(dayItems:Array<DayItem>, person:Person):number {
-    if (!dayItems) return 0;
+  getWorkedDaysCount(dayItems: Array<DayItem>, person: Person): number {
+    if (!dayItems) {
+      return 0;
+    }
 
-    let workedCount:number = 0;
+    let workedDays = 0;
     dayItems
       .filter(dayItem => person.id === dayItem.person.id)
       .forEach(dayItem => {
         dayItem.recordSet
-          .filter(dayItemRecord => dayItemRecord.type.code == 'PRESENT' || dayItemRecord.type.code == 'COMPENSATORY')
-          .forEach(presentDayItemRecord => workedCount += presentDayItemRecord.hoursCount);
+          .filter(dayItemRecord => dayItemRecord.type.code === 'PRESENT' || dayItemRecord.type.code === 'COMPENSATORY')
+          .forEach(presentDayItemRecord => {
+            workedDays ++;
+          });
       });
-    return workedCount / 8;
+    return workedDays;
   }
 
-  getHolidayCount(dayItems:Array<DayItem>, person:Person):number {
-    if (!dayItems) return 0;
+  getHolidayCount(dayItems: Array<DayItem>, person: Person): number {
+    if (!dayItems) {
+      return 0;
+    }
 
-    let holidayCount:number = 0;
+    let holidayCount = 0;
     dayItems
       .filter(dayItem => person.id === dayItem.person.id)
       .forEach(dayItem => {
         dayItem.recordSet
-          .filter(dayItemRecord => dayItemRecord.type.code == 'VACATION')
+          .filter(dayItemRecord => dayItemRecord.type.code === 'VACATION')
           .forEach(presentDayItemRecord => holidayCount ++);
       });
     return holidayCount;

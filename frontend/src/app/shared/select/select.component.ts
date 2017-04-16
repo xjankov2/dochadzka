@@ -1,7 +1,7 @@
-import {Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
-import {EnumService} from "../service/enum.service";
-import {RecordType} from "../../rest/model/RecordType";
-import {Observable} from "rxjs";
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {EnumService} from '../service/enum.service';
+import {RecordType} from '../../rest/model/RecordType';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'sbb-select',
