@@ -76,8 +76,8 @@
                   <phase>generate-sources</phase>
                   <configuration>
                     <target>
-                      <exec executable="npm" osfamily="unix">
-                        <arg value="run-script" />
+                      <exec executable="ng" osfamily="unix">
+                        <arg value="build" />
                         <arg value="prod" />
                       </exec>
                     </target>
