@@ -1,1 +1,1 @@
-java -Dfile.encoding=UTF8 -Ddb-init=true -jar application.jar --db-generate=create --db-path=C:\DochadzkaDB
+java -Dfile.encoding=UTF8 -Ddb-init=true -jar application.jar --db-generate=create --db-path=C:\Dochadzka-DB

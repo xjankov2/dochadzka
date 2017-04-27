@@ -1,1 +1,1 @@
-java -Dfile.encoding=UTF8 -jar application.jar --db-path=C:\DochadzkaDB
+java -Dfile.encoding=UTF8 -jar application.jar --db-path=C:\Dochadzka-DB
