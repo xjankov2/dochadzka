@@ -7,10 +7,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.Persistence;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -28,10 +24,20 @@ public class Application {
     }
 
     private static void handleApplicationStop() {
-        Properties p = System.getProperties();
-        String property = p.getProperty("db-init");
-        if ("true".equals(property)) {
+        if (isDBInit() || isDBUpdate()) {
             System.exit(0);
         }
+    }
+
+    private static boolean isDBInit() {
+        Properties p = System.getProperties();
+        String property = p.getProperty("db-init");
+        return "true".equals(property);
+    }
+
+    private static boolean isDBUpdate() {
+        Properties p = System.getProperties();
+        String property = p.getProperty("db-update");
+        return !StringUtils.isEmpty(property);
     }
 }

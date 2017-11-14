@@ -1,0 +1,15 @@
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (16, 1, 1, 2018, 'Deň vzniku Slovenskej republiky');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (17, 6, 1, 2018, 'Zjavenie Pána (Traja králi)');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (18, 30, 3, 2018, 'Veľký piatok');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (19, 2, 4, 2018, 'Veľkonočný pondelok');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (20, 1, 5, 2018, 'Sviatok práce');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (21, 8, 5, 2018, 'Deň víťazstva nad fašizmom');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (22, 5, 7, 2018, 'Sviatok svätého Cyrila a Metoda');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (23, 29, 8, 2018, 'Výročie SNP');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (24, 1, 9, 2018, 'Deň Ústavy Slovenskej republiky');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (25, 15, 9, 2018, 'Sedembolestná Panna Mária');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (26, 1, 11, 2018, 'Sviatok všetkých svätých');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (27, 17, 11, 2018, 'Deň boja za slobodu a demokraciu');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (28, 24, 12, 2018, 'Štedrý deň');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (29, 25, 12, 2018, 'Prvý sviatok vianočný');
+insert into holiday (ID, DAY, MONTH, YEAR_VALUE, DESCRIPTION)  values (30, 26, 12, 2018, 'Druhý sviatok vianočný');
