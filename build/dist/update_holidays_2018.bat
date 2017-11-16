@@ -1,0 +1,1 @@
+java -Ddb-update=holidays_2018 -Dfile.encoding=UTF8 -jar application.jar --db-path=C:\Dochadzka-DB
